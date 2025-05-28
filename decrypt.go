@@ -24,7 +24,7 @@ func DecryptRaw(key []byte, encrypted []byte) ([]byte, error) {
 	}
 
 	if len(cipherText) % aes.BlockSize != 0 {
-		return nil, errors.New("Incorrect ciphertext length")
+		return nil, errors.New("incorrect ciphertext length")
 	}
 
 	plainText := make([]byte, len(cipherText))

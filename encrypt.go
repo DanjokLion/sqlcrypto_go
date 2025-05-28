@@ -28,9 +28,7 @@ func EncryptRaw(key []byte, plainText []byte) ([]byte, error) {
 	mode := cipher.NewCBCEncrypter(block, iv)
 	mode.CryptBlocks(cipherText, padded)
 
-	enc := append(iv, cipherText...)
-
-	return []byte(Base64Encode(enc)), nil
+	return append(iv, cipherText...), nil
 }
 
 // EncryptToBase64 encrypts the string using AES-256-CBC with a random IV
