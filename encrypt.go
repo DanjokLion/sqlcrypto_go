@@ -8,7 +8,7 @@ import (
 
 // EncryptRaw encrypts the string using AES-256-CBC with a random IV
 // Returns IV + ciphertext
-func EncryptRaw(key []byte, plainText []byte) ([]byte, error) {
+func encryptRaw(key []byte, plainText []byte) ([]byte, error) {
 	if len(key) != 32 {
 		return nil, errors.New("key must be 32 bytes long for AES-256")
 	}
@@ -19,7 +19,7 @@ func EncryptRaw(key []byte, plainText []byte) ([]byte, error) {
 	}
 
 	padded := pkcs7Pad(plainText, aes.BlockSize)
-	iv, err := GenerateIV(aes.BlockSize)
+	iv, err := generateIV(aes.BlockSize)
 	if err != nil {
 		return nil, err
 	}
@@ -33,11 +33,11 @@ func EncryptRaw(key []byte, plainText []byte) ([]byte, error) {
 
 // EncryptToBase64 encrypts the string using AES-256-CBC with a random IV
 // Returns base64(IV + ciphertext)
-func EncryptToBase64(key []byte, plainText string) (string, error) {
-	data, err := EncryptRaw(key, []byte(plainText))
+func encryptToBase64(key []byte, plainText string) (string, error) {
+	data, err := encryptRaw(key, []byte(plainText))
 	if err != nil {
 		return "", err
 	}
 
-	return Base64Encode(data), nil
+	return base64Encode(data), nil
 }

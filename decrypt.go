@@ -6,7 +6,7 @@ import (
 	"errors"
 )
 
-func DecryptRaw(key []byte, encrypted []byte) ([]byte, error) {
+func decryptRaw(key []byte, encrypted []byte) ([]byte, error) {
 	if len(key) != 32 {
 		return nil, errors.New("key must be 32 bytes long for AES-256")
 	}
@@ -34,13 +34,13 @@ func DecryptRaw(key []byte, encrypted []byte) ([]byte, error) {
 	return pkcs7Unpad(plainText, aes.BlockSize)
 }
 
-func DecryptFromBase64(key []byte, base64data string) (string, error) {
-	encrypted, err := Base64Decode(base64data)
+func decryptFromBase64(key []byte, base64data string) (string, error) {
+	encrypted, err := base64Decode(base64data)
 	if err != nil {
 		return "", err
 	} 
 
-	decrypted, err := DecryptRaw(key, encrypted)
+	decrypted, err := decryptRaw(key, encrypted)
 	if err != nil {
 		return "", err
 	}

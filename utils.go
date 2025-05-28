@@ -11,7 +11,7 @@ import (
 const AESBlockSize = 16
 
 // GenerateIV generates a random IV of length AESBlockSize
-func GenerateIVAES() ([]byte, error) {
+func generateIVdefault() ([]byte, error) {
 	iv := make([]byte, AESBlockSize)
 	_, err := rand.Read(iv) 
 	if err != nil {
@@ -22,7 +22,7 @@ func GenerateIVAES() ([]byte, error) {
 }
 
 // Generate IV generates an IV of a specific length AES Block Size
-func GenerateIV(size int) ([]byte, error) {
+func generateIV(size int) ([]byte, error) {
 	iv := make([]byte, size)
 	_, err := rand.Read(iv) 
 	if err != nil {
@@ -33,12 +33,12 @@ func GenerateIV(size int) ([]byte, error) {
 }
 
 // Base64Encode encodes binary data into a base64 string
-func Base64Encode(data []byte) string {
+func base64Encode(data []byte) string {
 	return base64.StdEncoding.EncodeToString(data)
 }
 
 // Base64Decode decodes base64 string into binary
-func Base64Decode(encoded string) ([]byte, error) {
+func base64Decode(encoded string) ([]byte, error) {
 	decoded, err := base64.StdEncoding.DecodeString(encoded)
 	if err != nil {
 		return nil, fmt.Errorf("base64 decoding error:  %w", err)
